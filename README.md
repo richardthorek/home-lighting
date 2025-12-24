@@ -53,10 +53,19 @@ New to the project? Start here:
 
 **Phase**: Planning & Documentation (as of 2025-12-24)
 
-- ✅ Master plan created
+**Current Configuration** (Decisions finalized 2025-12-24):
+- ✅ Controller: Falcon PiCap + Raspberry Pi 4 selected
+- ✅ LEDs: 500× 12V WS2811 bullet pixels, 10cm spacing
+- ✅ Power: Mean Well LRS-350-12 (350W)
+- ✅ Network: Wired Ethernet
+- ✅ Integration: FPP MQTT Plugin for Home Assistant
+- ✅ Installation: 2 zones, controller under cover at edge of house
+
+**Documentation Progress**:
+- ✅ Master plan created with decision log entries
 - ✅ Complete documentation structure established
-- ✅ Shopping list with supplier links
-- ✅ Decision framework documented
+- ✅ Shopping list with supplier links and chosen configuration highlighted
+- ✅ Decision checklist completed with specific choices
 - ✅ Architecture diagrams prompts prepared
 - ⏳ Hardware procurement (next phase)
 

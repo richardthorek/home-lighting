@@ -395,6 +395,79 @@ External Tools (Development):
 
 ---
 
+### Entry 4: 2025-12-24 - Initial Pixel Count and Density
+**Decision**: Start with 500 pixels using 12V WS2811 bullet pixels at 10cm (4") spacing
+
+**Rationale**:
+- **Manageable scope**: 500 pixels is large enough to create impressive displays but small enough for Phase 1 learning
+- **Power supply sizing**: 500 pixels fits well within Mean Well LRS-350-12 capacity (350W) with appropriate headroom
+- **Falcon PiCap capacity**: Well within single output capacity (800px max), leaves room for expansion on remaining outputs
+- **Cost effective**: ~$125-200 for pixels at bulk pricing, reasonable initial investment
+- **Spacing balance**: 10cm spacing provides good visual effect for rooflines while keeping pixel count and cost manageable
+- **Future flexibility**: Can add more pixels and vary density in future phases
+
+**Trade-offs Accepted**:
+- Not covering entire house in Phase 1 (expansion planned for later phases)
+- 10cm spacing may appear slightly sparse for close-up viewing (acceptable for roofline distances)
+- Single density choice means all zones will have similar pixel spacing initially
+
+**Alternatives Considered**:
+1. **300 pixels**: Too small for impactful display, would likely need immediate expansion
+2. **800+ pixels**: Exceeds comfortable Phase 1 scope, higher risk if design changes needed
+3. **7.5cm spacing**: Denser effect but 33% more pixels/cost, diminishing returns at viewing distance
+4. **Mix of densities**: Added complexity for Phase 1, better suited for future expansion
+
+**Implementation Notes**:
+- Order 500x 12V WS2811 bullet pixels, 10cm spacing, IP68 rated
+- Plan for 2 zones to utilize 2 of the 4 PiCap outputs
+- Exact zone allocation TBD during physical site measurement
+- Both-ends power injection strategy for 12V runs
+
+**Next Steps**:
+- Measure house rooflines to determine optimal zone breakdown
+- Finalize shopping list quantities for 500-pixel installation
+- Plan power distribution for 2-zone setup
+
+---
+
+### Entry 5: 2025-12-24 - Controller Location Strategy
+**Decision**: Install controller under cover at edge of house with wired Ethernet connection to home network switch
+
+**Rationale**:
+- **Weather protection**: Under-cover location protects Pi and PiCap from direct rain/sun exposure while maintaining outdoor proximity
+- **Ethernet reliability**: Wired connection eliminates Wi-Fi reliability concerns for permanent outdoor installation
+- **Accessibility**: Edge of house location provides reasonable access for troubleshooting and maintenance
+- **Cable management**: Proximity to LED start points minimizes data cable runs and signal degradation
+- **Network integration**: Direct connection to home switch ensures stable Home Assistant communication
+- **Expansion ready**: Location chosen with consideration for future zone additions
+
+**Trade-offs Accepted**:
+- Requires running Ethernet cable from indoor network switch to outdoor location
+- May need outdoor-rated enclosure even under cover (for humidity/temperature)
+- Access requires going outside (vs indoor controller location)
+- Specific mounting location TBD during installation phase
+
+**Alternatives Considered**:
+1. **Fully indoor controller**: Cleaner environment but would require longer outdoor cable runs for LEDs and potential signal issues
+2. **Fully outdoor exposed**: Requires more robust weatherproofing, higher risk of moisture/temperature issues
+3. **Garage location**: May be too far from optimal LED zone starting points
+4. **Wi-Fi connection**: Rejected due to reliability concerns for permanent installation
+
+**Implementation Notes**:
+- Measure Ethernet cable run from indoor switch to proposed outdoor location
+- Select IP65+ rated enclosure for controller and PSU
+- Plan cable entry points with weatherproof grommets/glands
+- PSU location to be determined (likely near controller or may be indoor with power cable run)
+- Final placement will be confirmed during installation planning with actual measurements
+
+**Next Steps**:
+- Measure Ethernet run length and plan cable routing
+- Select appropriate enclosure size for Pi+PiCap+connections
+- Determine PSU location (co-located with controller vs separate indoor location)
+- Add Ethernet cable and enclosure to shopping list
+
+---
+
 ## High-Level Requirements
 
 ### Functional Requirements
@@ -521,6 +594,7 @@ External Tools (Development):
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0 | 2025-12-24 | GitHub Copilot | Initial master plan creation with comprehensive documentation structure, architecture definition, phase breakdown, and decision logging |
+| 1.1 | 2025-12-24 | GitHub Copilot | Added Decision Log entries 4 & 5: 500-pixel starting scope with 10cm spacing, controller location strategy under cover with wired Ethernet |
 
 ---
 

@@ -55,12 +55,22 @@ See **[docs/current_state/shopping_list.md](./shopping_list.md)** for the comple
 - Raspberry Pi 4 (4GB): ~$55 USD
 - Falcon PiCap v2: ~$50 USD  
 - MicroSD card (32GB): ~$10 USD
-- 12V Power Supply (350W): ~$30-60 USD
+- 12V Power Supply (100W for testing): ~$20 USD
 - 50 x 12V WS2811 pixels (test string): ~$15-25 USD
 - Ray Wu 3-pin connectors (10 pack): ~$5 USD
 - 18AWG wire (10m): ~$10 USD
 
 **Total for test setup**: ~$175-215 USD
+
+**Phase 1 Full Installation** (current target configuration):
+- All test setup components above
+- Upgrade to Mean Well LRS-350-12 (350W): ~$40 USD
+- 500× 12V WS2811 bullet pixels (10cm spacing): ~$125-200 USD
+- Additional wiring and connectors: ~$60 USD
+- Enclosures and mounting hardware: ~$80-120 USD
+- Fuses, distribution, safety gear: ~$40 USD
+
+**Total for Phase 1**: ~$500-700 USD ⭐
 
 ### 4. Make Critical Decisions (20 minutes)
 
@@ -71,6 +81,8 @@ Work through the **[Decision Checklist](./decision_checklist.md)** to answer que
 - Will you create custom sequences, or use pre-made ones?
 
 **Pro tip**: Start small! Order enough for 1-2 zones first, test everything, then expand.
+
+**Current Status**: ✅ Key decisions made (see Configuration section above). Remaining decisions (mounting method, specific zone layout) will be determined during installation planning.
 
 ### 5. Follow the Implementation Phases
 
@@ -85,6 +97,37 @@ Our master plan breaks the project into manageable phases:
 | 5. Sequences | Create holiday shows in xLights | Ongoing | Custom effects |
 
 **Current Phase**: Planning (you are here!)
+
+---
+
+## ✨ Current Project Configuration
+
+Based on decisions made on 2025-12-24, here's the chosen configuration for this build:
+
+**Hardware Selection**:
+- **Controller**: Falcon PiCap + Raspberry Pi 4 (4GB)
+- **LEDs**: 500× 12V WS2811 Bullet Pixels
+- **Spacing**: 10cm (4") between pixels (~50m total coverage)
+- **Power**: Mean Well LRS-350-12 (350W supply)
+- **Zones**: 2 zones initially (2 of 4 PiCap outputs used)
+
+**Architecture Decisions**:
+- **Network**: Wired Ethernet for reliability
+- **Location**: Controller under cover at edge of house
+- **Power Strategy**: Both-ends injection on 12V runs
+- **Integration**: FPP MQTT Plugin → Home Assistant
+- **Form Factor**: Bullet pixels for rooflines (strips may be added later)
+
+**Phase 1 Budget Target**: ~$500-700 USD for complete 500-pixel installation
+
+**Why These Choices?**
+- **12V WS2811**: Industry standard for outdoor permanent installations, allows longer runs
+- **500 pixels**: Sweet spot for impressive display while learning the system
+- **10cm spacing**: Good balance of visual effect and cost for roofline viewing distances
+- **Falcon PiCap**: Room to expand to 3200 pixels without replacing controller
+- **Wired Ethernet**: Most reliable connection for permanent outdoor installation
+
+See **[decision_checklist.md](./decision_checklist.md)** for detailed rationale and alternatives considered.
 
 ---
 

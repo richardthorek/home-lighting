@@ -4,6 +4,12 @@
 
 This guide covers physical assembly, wiring, and testing of the Falcon PiCap + Raspberry Pi LED controller system. Follow these steps carefully to ensure a safe, reliable installation.
 
+**Current Build Configuration** (as of 2025-12-24):
+- 500× 12V WS2811 bullet pixels, 10cm spacing
+- Mean Well LRS-350-12 (350W) power supply
+- 2 zones, both-ends power injection strategy
+- Wired Ethernet connection
+
 **Prerequisites**:
 - All parts received from shopping list
 - Basic tools available (see Tools section)
