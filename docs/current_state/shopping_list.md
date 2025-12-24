@@ -4,9 +4,17 @@
 
 This shopping list provides all hardware and materials needed for the Falcon PiCap + Raspberry Pi lighting system. Items are organized by category with supplier links, pricing (as of 2025-12), and quantity recommendations.
 
+**✨ Current Project Configuration** (Based on decisions made 2025-12-24):
+- **Controller**: Falcon PiCap + Raspberry Pi 4
+- **LEDs**: 500x 12V WS2811 Bullet Pixels, 10cm (4") spacing, IP68 rated
+- **Power**: Mean Well LRS-350-12 (350W) with both-ends injection strategy
+- **Network**: Wired Ethernet to home switch
+- **Integration**: FPP MQTT Plugin for Home Assistant
+- **Installation**: 2 zones, controller under cover at edge of house
+
 **Budget Summary**:
 - **Minimum Test Setup**: ~$175-215 USD (50 pixels for testing)
-- **Phase 1 Full Setup** (500 pixels, 2 zones): ~$500-700 USD
+- **Phase 1 Full Setup** (500 pixels, 2 zones): ~$500-700 USD ⭐ **Current Target**
 - **Phase 2 Expansion** (1500 pixels, 4-5 zones): ~$900-1200 USD
 
 ---
@@ -38,15 +46,16 @@ This shopping list provides all hardware and materials needed for the Falcon PiC
 | Type | Specs | Qty | Unit Price | Total | Supplier | Use Case |
 |------|-------|-----|------------|-------|----------|----------|
 | **Ray Wu 12V Bullet Pixels** | WS2811, 3-LED, 10cm spacing, IP68 | 50 (test) | $0.30-0.50 ea | $15-25 | [Ray Wu Store (AliExpress)](https://www.aliexpress.com/store/1047122) | Initial testing |
-| **Ray Wu 12V Bullet Pixels** | WS2811, 3-LED, 10cm spacing, IP68 | 500 (Phase 1) | $0.25-0.40 ea | $125-200 | [Ray Wu Store](https://www.aliexpress.com/store/1047122) | Full roofline install |
+| **Ray Wu 12V Bullet Pixels** ⭐ | WS2811, 3-LED, **10cm spacing**, IP68 | **500 (Phase 1)** | $0.25-0.40 ea | $125-200 | [Ray Wu Store](https://www.aliexpress.com/store/1047122) | **Full roofline install - CHOSEN CONFIG** |
 | **Ray Wu 12V Bullet Pixels** | WS2811, 3-LED, 10cm spacing, IP68 | 1000+ (expansion) | $0.22-0.35 ea | $220-350 | [Ray Wu Store](https://www.aliexpress.com/store/1047122) | Large displays |
 | **12V WS2811 LED Strip** | 60 LED/m (20 pixels/m), IP67, 5m reel | 1-2 reels | $25-40/reel | $50-80 | Amazon, AliExpress | Continuous light lines (alternative to bullets) |
 
 **Notes**:
-- **Spacing Options**: 3" (7.5cm), 4" (10cm), 6" (15cm) - Choose based on desired density
+- **Spacing Options**: 3" (7.5cm), 4" (10cm) ⭐ **CHOSEN**, 6" (15cm) - Choose based on desired density
 - **Connector Type**: Order with **Ray Wu 3-pin JST-SM waterproof connectors** pre-attached
 - **Colors**: Order "RGB" (full color) not single-color strings
 - **IP Rating**: IP67 minimum for outdoor, IP68 for harsh weather areas
+- **Current Configuration**: 500 pixels at 10cm spacing provides ~50m of coverage
 
 ### Alternative LED Options (for comparison)
 
@@ -67,18 +76,18 @@ This shopping list provides all hardware and materials needed for the Falcon PiC
 
 | Item | Specs | Qty | Unit Price | Total | Supplier | Notes |
 |------|-------|-----|------------|-------|----------|-------|
-| **Mean Well LRS-350-12** | 12V 29A 350W, enclosed | 1 | $35-50 USD | $40 | [Digi-Key](https://www.digikey.com/), [Mouser](https://www.mouser.com/), Amazon | High quality, UL listed, recommended |
+| **Mean Well LRS-350-12** ⭐ | 12V 29A 350W, enclosed | 1 | $35-50 USD | $40 | [Digi-Key](https://www.digikey.com/), [Mouser](https://www.mouser.com/), Amazon | **High quality, UL listed - CHOSEN for 500px setup** |
 | **Generic 12V 30A PSU** | 12V 30A 360W, enclosed | 1 | $25-35 USD | $30 | Amazon, eBay | Budget option, check reviews |
 | **Mean Well LRS-100-12** | 12V 8.5A 100W | 1 | $15-25 USD | $20 | Digi-Key, Mouser | For small test setups only |
 
 **Power Calculation Guide**:
 ```
 Pixels × 0.05A × 12V = Max Wattage
-Example: 500 pixels × 0.05A × 12V = 300W (use 350W supply)
+Example: 500 pixels × 0.05A × 12V = 300W (use 350W supply) ⭐ CURRENT CONFIG
 
 Rule of thumb: 
 - 50-100 pixels: 100W supply
-- 300-500 pixels: 350W supply  
+- 300-500 pixels: 350W supply ⭐ CHOSEN
 - 500-1000 pixels: 600W supply
 - 1000-2000 pixels: 2× 350W or 1× 1000W supply
 ```
@@ -88,6 +97,7 @@ Rule of thumb:
 - Use enclosed supplies (safer, weatherproof-ready)
 - Mean Well is industry standard for reliability
 - For large installs (1500+ pixels), consider multiple smaller supplies
+- **Current setup**: 500 pixels = ~300W max, 350W PSU provides 17% headroom
 
 ### Power Distribution & Safety
 
@@ -98,6 +108,12 @@ Rule of thumb:
 | **Inline Fuse Holders** | Blade type, 18AWG | 5-10 | $1-2 ea | $10 | Amazon, auto parts |
 | **Circuit Breaker** | 15A, 12V DC rated | 1 | $8-12 | $10 | Amazon, marine supply |
 | **GFCI Outlet** (AC side) | 120V/240V, outdoor rated | 1 | $15-25 | $20 | Home Depot, Bunnings |
+
+**Current Configuration - Both-Ends Power Injection** ⭐:
+- Using 12V allows for longer runs with injection at start and end points only
+- For 2 zones at ~250 pixels each (~25m runs), inject power at both ends of each run
+- Use home-run injection strategy: separate wire from PSU to each injection point
+- This provides best voltage stability and prevents color/brightness fade at far end
 
 **Subtotal (Power)**: ~$90-120 USD
 
@@ -227,19 +243,25 @@ Rule of thumb:
 
 ---
 
-### Phase 1 Installation Bundle (~$650)
+### Phase 1 Installation Bundle (~$650) ⭐ **CURRENT TARGET**
 Everything from Test Setup, plus:
-- Mean Well LRS-350-12 (350W PSU) – upgrade
-- 500× 12V WS2811 pixels
+- Mean Well LRS-350-12 (350W PSU) – upgrade ⭐
+- **500× 12V WS2811 bullet pixels (10cm spacing, IP68)** ⭐ **CHOSEN CONFIG**
 - 30m 18AWG 3-conductor cable
-- 30m 16AWG 2-conductor cable
+- 30m 16AWG 2-conductor cable (for power injection)
 - 20× Ray Wu connectors
 - Controller + PSU enclosures (IP65)
 - 3× junction boxes
-- Mounting clips or Boscoyo strips (10m)
+- Mounting clips or Boscoyo strips (10m) - TBD
 - Fuses and distribution block
+- Ethernet cable (length based on actual measurement)
 
-**Purpose**: Full roofline or 2-zone installation
+**Purpose**: Full 2-zone installation with 500 pixels
+**Configuration**: 
+- 2 zones utilizing 2 of 4 PiCap outputs
+- Both-ends power injection strategy
+- Controller under cover with wired Ethernet
+- Leaves 2 outputs available for future expansion
 
 ---
 
@@ -294,5 +316,11 @@ Everything from Test Setup, plus:
 ---
 
 ## Updated: 2025-12-24
+
+**Latest Changes**: 
+- Highlighted current project configuration (500 pixels, 10cm spacing, Mean Well LRS-350-12)
+- Emphasized Phase 1 Installation Bundle as chosen path
+- Added notes on both-ends power injection strategy
+- Updated pricing and availability information
 
 Prices and availability subject to change. Always verify current pricing and stock before ordering.
