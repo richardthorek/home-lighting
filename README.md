@@ -16,16 +16,19 @@ This repository documents the complete setup of a home Christmas/holiday lightin
 
 New to the project? Start here:
 
-1. **[Getting Started Guide](docs/current_state/getting_started.md)** - 5-minute overview and quick start
-2. **[Master Plan](master_plan.md)** - Strategic roadmap and architecture overview
-3. **[Shopping List](docs/current_state/shopping_list.md)** - Complete parts list with suppliers
-4. **[Decision Checklist](docs/current_state/decision_checklist.md)** - Critical decisions to make
+1. **[Pi Controller Bring-Up Guide](docs/pi-setup-guide.html)** - Step-by-step Pi 4 + PiCap + FPP setup, wiring diagrams, power budget and project review (open in a browser; supersedes conflicting power advice in the older docs)
+2. **[Getting Started Guide](docs/current_state/getting_started.md)** - 5-minute overview and quick start
+3. **[Master Plan](master_plan.md)** - Strategic roadmap and architecture overview
+4. **[Shopping List](docs/current_state/shopping_list.md)** - Complete parts list with suppliers
+5. **[Decision Checklist](docs/current_state/decision_checklist.md)** - Critical decisions to make
+
+**Setting up a laptop to work on this repo?** See [`.devcontainer/README.md`](.devcontainer/README.md) — a devcontainer with git/gh, Python, MQTT tooling and Claude Code preinstalled.
 
 ## 📚 Documentation
 
 ### Strategic Documents
 - **[master_plan.md](master_plan.md)** - Single source of truth for project scope, phases, and decisions
-- **[initial_research](initial_research)** - Technical research baseline (read-only reference)
+- **[initial_research](docs/archive/initial_research.md)** - Technical research baseline (read-only reference)
 
 ### Implementation Guides
 - **[Getting Started](docs/current_state/getting_started.md)** - Newcomer-friendly introduction

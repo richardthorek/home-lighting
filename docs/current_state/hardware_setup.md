@@ -186,6 +186,9 @@ White/Green = Data In
    - Ensure connection is snug and twisted on (Ray Wu connectors screw on)
 
 3. **Power Connection for PiCap**:
+
+   > **Correction (2026-09-27):** do not power the Pi 4 from the PiCap. The PiCap's onboard regulator is rated 1.5 A (PiCap manual v0.3), below the Pi 4's 3 A requirement. Leave the `PWR PI` jumper off and power the Pi from the official 5.1 V 3 A USB-C supply. Feed pixel +12 V from a fused supply way, not through the PiCap; take only DATA and GND from the PiCap port. The diagram below is superseded by [the Pi setup guide](../pi-setup-guide.html#wiring).
+
    - PiCap can be powered from pixel supply (recommended for test)
    - Connect PSU output to PiCap power input terminals:
      - PSU V+ → PiCap V+ input

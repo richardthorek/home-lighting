@@ -1,0 +1,39 @@
+{
+  "name": "lighting-ops",
+  "build": { "dockerfile": "Dockerfile" },
+
+  // HA_URL / HA_TOKEN live in .devcontainer/.env (create it from
+  // .env.example — it's gitignored and never read by either repo's tooling
+  // except as plain process env vars, so nothing here ends up in git).
+  "runArgs": ["--env-file", "${localWorkspaceFolder}/.devcontainer/.env"],
+
+  "features": {
+    // arm64-native, matches Docker Desktop's Snapdragon/ARM64 build
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
+  // Claude Code's login lives in ~/.claude — without this, a rebuild
+  // wipes it and every rebuild needs a fresh browser login.
+  "mounts": [
+    "source=lighting-ops-claude-config,target=/home/vscode/.claude,type=volume"
+  ],
+
+  // pyyaml: the one dependency validate_config.py's own CI installs
+  // (haconfiguration/.github/workflows/validate.yml). websockets: for the
+  // system_log/list diagnostic path haconfiguration's CLAUDE.md documents
+  // (GET /api/error_log 404s on this HA version; the websocket API is the
+  // real route to tracebacks).
+  "postCreateCommand": "pip install --user pyyaml websockets",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "redhat.vscode-yaml",
+        "github.vscode-pull-request-github"
+      ]
+    }
+  },
+
+  "remoteUser": "vscode"
+}

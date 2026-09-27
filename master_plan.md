@@ -558,7 +558,7 @@ External Tools (Development):
 
 ### External Resources
 - **Home Assistant Config Repository**: https://github.com/richardthorek/haconfiguration
-- **Initial Research Document**: `./initial_research` (technical foundation)
+- **Initial Research Document**: `docs/archive/initial_research.md` (technical foundation)
 - **Falcon Player Documentation**: https://falconchristmas.github.io/FPP/
 - **xLights Documentation**: https://xlights.org/
 - **Falcon Hardware**: https://pixelcontroller.com/
