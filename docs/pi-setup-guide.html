@@ -90,7 +90,7 @@ h4{font-size:15.5px;margin:0 0 4px;font-weight:600}
 .prose p,.prose li{max-width:70ch}
 
 /* Callouts */
-.changes{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:18px 0 6px}
+.changes{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:14px;margin:18px 0 6px}
 .change{background:var(--panel);border:1px solid var(--rule);border-top:3px solid var(--bad);padding:14px 16px}
 .change.warn{border-top-color:var(--warn)}
 .change h4{font-family:var(--font-display);font-size:19px;font-weight:600;letter-spacing:.01em;margin-bottom:6px}
@@ -201,13 +201,13 @@ footer{color:var(--ink-3);font-size:13px;padding-block:0 40px}
       <p class="lede">Flash, wire, configure and connect the Pi 4 + Falcon PiCap that drives the house pixels, from blank SD card to a working light entity in Home Assistant. Built against FPP 10.1 and Home Assistant 2026.7.</p>
     </div>
     <div class="tblock" aria-label="Build summary">
-      <div>Controller</div><div>Raspberry Pi 4 (4 GB) + Falcon PiCap</div>
+      <div>Controller</div><div>Raspberry Pi 4 (8 GB, DIGISHUO kit) + Falcon PiCap (owned)</div>
       <div>Software</div><div>Falcon Player 10.x (10.1.2, 17 Sep 2026)</div>
       <div>Pixels</div><div>500 &times; 12 V WS2811 bullets, 2 zones</div>
-      <div>12 V supply</div><div>Mean Well LRS-350-12 (29 A)</div>
+      <div>12 V supply</div><div>Open-frame, screw-terminal (Mean Well LRS-350-12 or equivalent) &middot; AC lead by electrician</div>
       <div>Network</div><div>Wired Ethernet, LAN 192.168.86.0/24</div>
       <div>HA host</div><div>Home Assistant Green, MQTT not yet set up</div>
-      <div>Revision</div><div>Rev A &middot; 27 Sep 2026</div>
+      <div>Revision</div><div>Rev B &middot; 27 Sep 2026</div>
     </div>
   </div>
 </header>
@@ -217,6 +217,7 @@ footer{color:var(--ink-3);font-size:13px;padding-block:0 40px}
     <div class="lbl">Contents</div>
     <ol>
       <li><a href="#changes"><span>Critical fixes</span></a></li>
+      <li><a href="#bom"><span>Bill of materials</span></a></li>
       <li><a href="#system"><span>System diagram</span></a></li>
       <li><a href="#wiring"><span>Power &amp; data wiring</span></a></li>
       <li><a href="#power"><span>Power budget</span></a></li>
@@ -237,8 +238,13 @@ footer{color:var(--ink-3);font-size:13px;padding-block:0 40px}
     <!-- 1 -->
     <section id="changes">
       <h2><span class="no">01</span>Critical corrections to the December docs</h2>
-      <p class="intro">This guide works with the hardware you already have. Only three things in the December 2025 docs would cause damage or instability on the first power-up, and all three are fixed by how you wire and configure it. None needs a new purchase for the proof of concept.</p>
+      <p class="intro">This guide works with the hardware you already have. Four things would cause damage, instability or a physical dead end on the first power-up. All four are fixed by how you assemble and wire it, not by buying different parts.</p>
       <div class="changes">
+        <div class="change">
+          <h4>Test-fit the PiCap before you commit</h4>
+          <p>The DIGISHUO kit&rsquo;s case is built for a GPIO-mounted 3.5&Prime; screen, and its cooling fan sits on a tower of heatsinks above the SoC. Both can physically collide with the PiCap, which needs the full 40-pin header clear and roughly 10&ndash;15&nbsp;mm of clearance above the board. Before fitting anything permanently: dry-fit the PiCap onto the bare Pi with no case and no fan, check nothing binds, then decide what to leave off.</p>
+          <div class="was">new &middot; see Phase C</div>
+        </div>
         <div class="change">
           <h4>Power the Pi separately</h4>
           <p>The PiCap&rsquo;s onboard regulator is rated 1.5 A. A Pi 4 needs a 3 A supply. For the proof of concept, use the official 5.1 V 3 A USB-C supply and leave the <code>PWR PI</code> jumper off. Never power the Pi from two sources at once.</p>
@@ -258,8 +264,99 @@ footer{color:var(--ink-3);font-size:13px;padding-block:0 40px}
     </section>
 
     <!-- 2 -->
+    <section id="bom">
+      <h2><span class="no">02</span>Bill of materials</h2>
+      <p class="intro">The Pi, PiCap, pixels and PSU are on hand. Everything below is the balance of system: distribution, enclosures, wiring and splicing to get 12&nbsp;V and data from the PSU to the pixels safely. Quantities for wire and connectors are working estimates for the 2-zone, ~500-pixel layout; firm them up once the site survey sets the real run lengths. Costs are rough AUD guides for budgeting, not quotes.</p>
+
+      <h3>On hand &mdash; confirm before you start</h3>
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Item</th><th>Note</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Raspberry Pi 4, 8 GB (DIGISHUO kit)</td><td>Kit includes case, fan + heatsinks, 64 GB Class 10 SD (blank &mdash; correct, don&rsquo;t pre-install NOOBS)</td><td><span class="pill ok">Have</span></td></tr>
+            <tr><td>Falcon PiCap</td><td>Confirm jumpers are present and a CR1225 is either fitted or on hand for the RTC</td><td><span class="pill ok">Have</span></td></tr>
+            <tr><td>12 V PSU, open-frame screw terminal</td><td>AC lead to be terminated by a licensed electrician &mdash; don&rsquo;t power it up before that&rsquo;s done</td><td><span class="pill ok">Have</span></td></tr>
+            <tr><td>500&times; 12 V WS2811 bullet pixels</td><td>Per earlier decisions (500 px, 2 zones)</td><td><span class="pill ok">Have</span></td></tr>
+            <tr><td>Official Pi 4 USB-C power supply (5.1 V / 3 A)</td><td>The DIGISHUO listing above doesn&rsquo;t itemise one &mdash; check the box before assuming it&rsquo;s there</td><td><span class="pill warn">Verify</span></td></tr>
+            <tr><td>Digital multimeter</td><td>Non-negotiable for the pre-power checks in Phase F</td><td><span class="pill warn">Verify</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Fusing &amp; DC distribution</h3>
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Item</th><th>Spec</th><th>Qty</th><th>Approx.</th></tr></thead>
+          <tbody>
+            <tr><td>Blade fuse block</td><td>5&ndash;6-way ATO/ATC, screw or lever terminals, automotive-style</td><td>1</td><td>$15&ndash;30</td></tr>
+            <tr><td>Blade fuses</td><td>3 A &times; 2 (PiCap/controller feed + spare), 7.5 A &times; 6 (4 zone feeds + 2 spare)</td><td>8</td><td>$5&ndash;10</td></tr>
+            <tr><td>0 V bus bar</td><td>Multi-way screw terminal block or barrier strip, &ge;30 A rating</td><td>1</td><td>$10&ndash;20</td></tr>
+            <tr><td>DIN rail + end stops</td><td>Only if the fuse block/bus bar you buy are DIN-mount</td><td>1 &times; 200&ndash;300&nbsp;mm</td><td>$8&ndash;15</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Enclosures &amp; glands</h3>
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Item</th><th>Spec</th><th>Qty</th><th>Approx.</th></tr></thead>
+          <tbody>
+            <tr><td>PSU enclosure</td><td>IP65, vented with insect-mesh vents, &asymp;300&times;200&times;150&nbsp;mm</td><td>1</td><td>$30&ndash;50</td></tr>
+            <tr><td>Controller enclosure</td><td>IP65, &asymp;200&times;120&times;75&nbsp;mm, room for the Pi + PiCap stack</td><td>1</td><td>$20&ndash;35</td></tr>
+            <tr><td>IP67 junction boxes</td><td>For zone-start and far-end splices (J1, J2 and spares)</td><td>4&ndash;5</td><td>$8&ndash;15 each</td></tr>
+            <tr><td>Cable glands, assorted</td><td>PG7&ndash;PG13.5 mix &mdash; AC in, 5&times; DC out, 2&times; data, Ethernet, vent</td><td>1 assorted pack</td><td>$15&ndash;25</td></tr>
+            <tr><td>Standoffs / enclosure mounting hardware</td><td>To mount the fuse block, bus bar and Pi/PiCap stack off the enclosure floor</td><td>1 set</td><td>$5&ndash;10</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Wire, connectors &amp; splicing</h3>
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Item</th><th>Spec</th><th>Qty</th><th>Approx.</th></tr></thead>
+          <tbody>
+            <tr><td>2-core DC cable, outdoor-rated</td><td>Mixed 0.75/1.5/2.5&nbsp;mm&sup2; &mdash; size each run with the calculator in &sect;05 once lengths are known</td><td>&asymp;30&ndash;40&nbsp;m total, buy by the roll</td><td>$1&ndash;3/m</td></tr>
+            <tr><td>Bootlace ferrules, assorted</td><td>0.75&ndash;2.5&nbsp;mm&sup2;, plus a crimper if you don&rsquo;t have one</td><td>1 pack + crimper</td><td>$15&ndash;30</td></tr>
+            <tr><td>Ring/spade terminals</td><td>For the PSU +V/&minus;V and bus bar screw terminals</td><td>1 assorted pack</td><td>$5&ndash;10</td></tr>
+            <tr><td>Ray Wu 3-pin waterproof pairs</td><td>Extension leads (PiCap port to J1/J2) and spares beyond what shipped with the pixels</td><td>6&ndash;10 pairs</td><td>$2&ndash;4/pair</td></tr>
+            <tr><td>Heat-shrink solder-seal splices</td><td>Waterproof butt connectors, for any join not going through a Ray Wu pair</td><td>1 pack</td><td>$8&ndash;15</td></tr>
+            <tr><td>Self-amalgamating tape</td><td>Backup weatherproofing over every outdoor splice</td><td>1&ndash;2 rolls</td><td>$5&ndash;8 each</td></tr>
+            <tr><td>Dielectric grease</td><td>Light coat inside every outdoor connector before mating</td><td>1 tube</td><td>$5&ndash;10</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Networking &amp; Pi power</h3>
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Item</th><th>Spec</th><th>Qty</th><th>Approx.</th></tr></thead>
+          <tbody>
+            <tr><td>Outdoor/UV-rated Cat6</td><td>Router to controller enclosure &mdash; a pre-made outdoor patch lead is easiest, or terminate your own with RJ45 + boots</td><td>1, sized to the run</td><td>$15&ndash;40</td></tr>
+            <tr><td>Pi USB-C supply</td><td>Only if not already in the kit (see &ldquo;on hand&rdquo; above) &mdash; official 5.1 V / 3 A</td><td>1</td><td>$12&ndash;20</td></tr>
+            <tr><td>12&rarr;5 V DC-DC converter <span class="pill info">Optional</span></td><td>e.g. Mean Well DDR-15G-5 &mdash; only if you later want a single mains entry instead of a USB-C supply on its own outlet. Not needed for the proof of concept.</td><td>1</td><td>$20&ndash;35</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Tools, if not already owned</h3>
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Item</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>DC clamp meter</td><td>Real current measurement in step F6 &mdash; the brightness cap depends on it</td></tr>
+            <tr><td>Wire strippers, small screwdrivers</td><td>General assembly</td></tr>
+            <tr><td>Drill + step bit or hole saw</td><td>Cutting gland holes in the enclosures cleanly</td></tr>
+            <tr><td>Heat gun</td><td>Heat-shrink splices</td></tr>
+            <tr><td>Label maker or paint pen</td><td>Phase J as-built labelling</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><p>Total balance-of-system spend is typically in the $250&ndash;350 AUD range for a 2-zone install at this scale, dominated by enclosures and cable. The site survey (zone lengths, injection points) is what turns the wire quantity above from an estimate into an order.</p></div>
+    </section>
+
+    <!-- 3 -->
     <section id="system">
-      <h2><span class="no">02</span>System diagram</h2>
+      <h2><span class="no">03</span>System diagram</h2>
       <p class="intro">The network and control paths. FPP is a client of the Mosquitto broker on the Home Assistant Green, so the Pi opens the MQTT connection. The pixel data never leaves the controller enclosure except on the two port cables.</p>
       <figure>
         <div class="svgscroll">
@@ -358,9 +455,9 @@ footer{color:var(--ink-3);font-size:13px;padding-block:0 40px}
       </figure>
     </section>
 
-    <!-- 3 -->
+    <!-- 4 -->
     <section id="wiring">
-      <h2><span class="no">03</span>Power &amp; data wiring</h2>
+      <h2><span class="no">04</span>Power &amp; data wiring</h2>
       <p class="intro">This is the installed layout. <strong>For the proof of concept, wire only F3 and one 7.5 A way:</strong> the official USB-C supply replaces the DC-DC converter, and a single test string on Port 1 replaces the zones. The DC-DC converter is an optional change for the install; a USB-C supply on a GPO inside the PSU enclosure also works. Every +12 V feed leaves through its own blade fuse. Every 0 V return lands on one bus bar, which is also the PiCap&rsquo;s ground, so data and power share a reference.</p>
       <figure>
         <div class="svgscroll">
@@ -542,9 +639,9 @@ footer{color:var(--ink-3);font-size:13px;padding-block:0 40px}
       <div class="danger"><p><strong>Mains.</strong> The LRS-350-12 is an open-frame supply with screw terminals. Australian rules restrict unlicensed mains work, so have a licensed electrician terminate the AC lead, or buy a pre-wired, enclosed 12 V supply with a moulded plug. Everything downstream of the PSU is 12 V or 5 V and is yours to wire.</p></div>
     </section>
 
-    <!-- 4 -->
+    <!-- 5 -->
     <section id="power">
-      <h2><span class="no">04</span>Power budget</h2>
+      <h2><span class="no">05</span>Power budget</h2>
       <p class="intro">Two numbers decide the supply and the cable: total current at your brightness cap, and voltage drop on the longest feed. Defaults use the conservative datasheet figure. Replace them with a clamp-meter reading from a real 50-pixel string at full white.</p>
       <div class="calc">
         <div class="card">
@@ -595,17 +692,17 @@ footer{color:var(--ink-3);font-size:13px;padding-block:0 40px}
       </div>
     </section>
 
-    <!-- 5 -->
+    <!-- 6 -->
     <section id="steps">
-      <h2><span class="no">05</span>Build steps</h2>
+      <h2><span class="no">06</span>Build steps</h2>
       <p class="intro">Do phases A to F on a bench indoors, with one test string, before anything goes up a ladder. Ticks are saved in this browser only. Menu paths match FPP 10.1; if a label differs slightly on your version, the setting will be in the same menu.</p>
 
       <div class="phase" data-phase="A">
         <div class="phase-head"><h3><span class="pl">A</span>Check the kit you have</h3><span class="where">Bench</span><span class="pc"></span></div>
         <ol class="steps">
-          <li><input type="checkbox" id="a1" aria-label="Mark step done"><div class="b"><h4>Controller parts</h4><ul><li>Raspberry Pi 4 (4 GB) and the official 5.1 V 3 A USB-C supply, for bench use only</li><li>Falcon PiCap with its jumpers, and a CR1225 coin cell for the RTC</li><li>32 GB A1 microSD (SanDisk or Samsung) and a card reader</li><li>Ethernet cable to the router, and a laptop on the same LAN</li></ul></div></li>
-          <li><input type="checkbox" id="a2" aria-label="Mark step done"><div class="b"><h4>Power parts</h4><ul><li>LRS-350-12 with its AC lead terminated by an electrician. If it is still bare screw terminals, stop here until that is done.</li><li>At least one inline blade fuse holder (3 A for the PiCap feed, 7.5 A for the test string). A fuse block and 0 V bus bar can wait for the install.</li><li>The official Pi 4 USB-C supply. If you don&rsquo;t have one, it is the only item you need to buy for the proof of concept.</li></ul></div></li>
-          <li><input type="checkbox" id="a3" aria-label="Mark step done"><div class="b"><h4>Test string and tools</h4><ul><li>One 50-pixel string and a matching 3-pin pigtail</li><li>Multimeter, a DC clamp meter if you have one, small flat screwdriver, wire strippers, ferrules</li></ul></div></li>
+          <li><input type="checkbox" id="a1" aria-label="Mark step done"><div class="b"><h4>Controller parts</h4><ul><li>Raspberry Pi 4, 8 GB (DIGISHUO kit) with its case, fan + heatsinks and 64 GB microSD &mdash; don&rsquo;t pre-load anything on the card, it gets wiped in Phase B</li><li>Falcon PiCap with its jumpers, and a CR1225 coin cell for the RTC</li><li>Official 5.1 V / 3 A USB-C supply &mdash; check the box; it isn&rsquo;t itemised in the DIGISHUO listing and is the one thing worth confirming before the bench session</li><li>Ethernet cable to the router, and a laptop on the same LAN</li></ul></div></li>
+          <li><input type="checkbox" id="a2" aria-label="Mark step done"><div class="b"><h4>Power parts</h4><ul><li>The 12 V PSU with its AC lead terminated by an electrician. If it is still bare screw terminals, stop here until that is done.</li><li>At least one inline blade fuse holder (3 A for the PiCap feed, 7.5 A for the test string). The full fuse block and 0 V bus bar from &sect;02 can wait for the install.</li></ul></div></li>
+          <li><input type="checkbox" id="a3" aria-label="Mark step done"><div class="b"><h4>Test string and tools</h4><ul><li>One 50-pixel string and a matching 3-pin pigtail</li><li>Multimeter (required), a DC clamp meter if you have one, small flat screwdriver, wire strippers, ferrules</li></ul></div></li>
         </ol>
       </div>
 
@@ -621,9 +718,10 @@ footer{color:var(--ink-3);font-size:13px;padding-block:0 40px}
       <div class="phase" data-phase="C">
         <div class="phase-head"><h3><span class="pl">C</span>Assemble the Pi and PiCap</h3><span class="where">Bench &middot; power off</span><span class="pc"></span></div>
         <ol class="steps">
+          <li><input type="checkbox" id="c0" aria-label="Mark step done"><div class="b"><h4>Strip the case back and dry-fit the PiCap</h4><p>Remove the case&rsquo;s top layer/lid, the fan and the tower heatsink before doing anything else &mdash; they&rsquo;re sized for a bare desktop Pi or a GPIO screen, not for stacking a HAT. Sit the PiCap on the header with no power connected and check: all 40 pins engage flat, the board sits level, and nothing on the Pi (fan shroud, tall heatsink, screen standoff posts) touches the underside of the PiCap. If the fan or a tower cooler is too tall, leave it off; low-profile heatsinks on the SoC and RAM chips alone are enough for FPP&rsquo;s load inside a vented enclosure.</p></div></li>
           <li><input type="checkbox" id="c1" aria-label="Mark step done"><div class="b"><h4>Fit the RTC battery</h4><p>CR1225, positive side up. The RTC keeps schedules correct if the Pi boots without network time.</p></div></li>
           <li><input type="checkbox" id="c2" aria-label="Mark step done"><div class="b"><h4>Set the jumpers for 12 V</h4><ul><li><strong>PWR SEL:</strong> two jumpers, on pins 1&ndash;2 and 3&ndash;4 (7&ndash;24 V input).</li><li><strong>PWR PI:</strong> off. The Pi gets its own supply.</li></ul><div class="danger"><p>The single-jumper position (pins 2&ndash;3) is for 5 V input. Feeding 12 V with that setting can destroy the PiCap and the Pi.</p></div></div></li>
-          <li><input type="checkbox" id="c3" aria-label="Mark step done"><div class="b"><h4>Seat the PiCap</h4><p>Line up all 40 header pins before pressing down; an offset by one row is easy to miss. Fit standoffs so the board can&rsquo;t flex when you tighten terminals.</p></div></li>
+          <li><input type="checkbox" id="c3" aria-label="Mark step done"><div class="b"><h4>Seat the PiCap for real</h4><p>Line up all 40 header pins before pressing down; an offset by one row is easy to miss. Fit standoffs between the Pi and the PiCap so the board can&rsquo;t flex when you tighten the screw terminals &mdash; the case&rsquo;s own standoffs are usually the wrong height for a HAT, so use PiCap-specific ones rather than reusing the case hardware.</p></div></li>
           <li><input type="checkbox" id="c4" aria-label="Mark step done"><div class="b"><h4>Insert the SD card and plug in Ethernet</h4><p>Leave the pixels and the 12 V supply disconnected for now. The software setup needs only the Pi.</p></div></li>
         </ol>
       </div>
@@ -712,9 +810,9 @@ House   start 1    channels 1500  Horizontal, 1 string, 1 strand</code></pre><bu
       </div>
     </section>
 
-    <!-- 6 -->
+    <!-- 7 -->
     <section id="trouble">
-      <h2><span class="no">06</span>Troubleshooting</h2>
+      <h2><span class="no">07</span>Troubleshooting</h2>
       <div class="tscroll">
         <table>
           <thead><tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr></thead>
@@ -733,11 +831,12 @@ House   start 1    channels 1500  Horizontal, 1 string, 1 strand</code></pre><bu
       </div>
     </section>
 
-    <!-- 7 -->
+    <!-- 8 -->
     <section id="review">
-      <h2><span class="no">07</span>Project review</h2>
+      <h2><span class="no">08</span>Project review</h2>
       <p class="intro">Findings from a full pass over the home-lighting repo, the haconfiguration repo and current FPP documentation. The hardware is already on hand, so these are corrections to wiring, configuration and documentation rather than purchases. Items marked &ldquo;Fix now&rdquo; affect the proof of concept.</p>
       <div class="findings">
+        <div class="finding"><span class="pill bad">Fix now</span><div><h4>Generic Pi 4 kit case/fan not built to stack a HAT</h4><p>The DIGISHUO starter kit is built for a bare desktop Pi or a GPIO-mounted 3.5&Prime; screen, not for a HAT sitting flush on the header. Its cooling tower can be tall enough to collide with the PiCap. Dry-fit before final assembly (Phase C step 1); low-profile heatsinks alone are enough for FPP in a vented enclosure.</p><div class="src">DIGISHUO kit listing, this session</div></div></div>
         <div class="finding"><span class="pill bad">Fix now</span><div><h4>Pi powered through the PiCap regulator</h4><p>A 1.5 A regulator is below the Pi 4&rsquo;s 3 A requirement. Expect undervoltage throttling and SD card corruption under load. Corrected in this guide; the note in hardware_setup.md now points here.</p><div class="src">docs/current_state/hardware_setup.md &sect;2.4</div></div></div>
         <div class="finding"><span class="pill bad">Fix now</span><div><h4>Supply sized on 0.05 A per pixel</h4><p>At the 60 mA datasheet figure, 500 pixels exceed the LRS-350-12&rsquo;s rating. Home Assistant makes full white a one-tap action. Keep the supply you have: measure a real string, then cap FPP brightness from the result (about 75% at the datasheet figure).</p><div class="src">shopping_list.md, decision_checklist.md</div></div></div>
         <div class="finding"><span class="pill bad">Fix now</span><div><h4>AC termination not assigned</h4><p>The docs say &ldquo;hire an electrician if unsure&rdquo;. For an open-frame 240 V supply in Australia, make it a required step: an electrician terminates the lead, or buy a pre-wired supply.</p><div class="src">hardware_setup.md &sect;2.3</div></div></div>
@@ -752,9 +851,9 @@ House   start 1    channels 1500  Horizontal, 1 string, 1 strand</code></pre><bu
       </div>
     </section>
 
-    <!-- 8 -->
+    <!-- 9 -->
     <section id="sources">
-      <h2><span class="no">08</span>Sources</h2>
+      <h2><span class="no">09</span>Sources</h2>
       <ol class="sources">
         <li><a href="https://github.com/FalconChristmas/fpp/releases">FPP releases (10.1.2, Sep 2026)</a></li>
         <li><a href="https://github.com/nick-diel/Falcon-PiCap-Manual">Falcon PiCap manual v0.3 (jumpers, regulator, GPIO)</a></li>
