@@ -22,6 +22,8 @@ New to the project? Start here:
 4. **[Shopping List](docs/current_state/shopping_list.md)** - Complete parts list with suppliers
 5. **[Decision Checklist](docs/current_state/decision_checklist.md)** - Critical decisions to make
 
+**Setting up a laptop to work on this repo?** See [`.devcontainer/README.md`](.devcontainer/README.md) — a devcontainer with git/gh, Python, MQTT tooling and Claude Code preinstalled.
+
 ## 📚 Documentation
 
 ### Strategic Documents
