@@ -12,9 +12,18 @@
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
 
-  // Mirrors the one dependency validate_config.py's own CI installs
-  // (haconfiguration/.github/workflows/validate.yml)
-  "postCreateCommand": "pip install --user pyyaml",
+  // Claude Code's login lives in ~/.claude — without this, a rebuild
+  // wipes it and every rebuild needs a fresh browser login.
+  "mounts": [
+    "source=lighting-ops-claude-config,target=/home/vscode/.claude,type=volume"
+  ],
+
+  // pyyaml: the one dependency validate_config.py's own CI installs
+  // (haconfiguration/.github/workflows/validate.yml). websockets: for the
+  // system_log/list diagnostic path haconfiguration's CLAUDE.md documents
+  // (GET /api/error_log 404s on this HA version; the websocket API is the
+  // real route to tracebacks).
+  "postCreateCommand": "pip install --user pyyaml websockets",
 
   "customizations": {
     "vscode": {

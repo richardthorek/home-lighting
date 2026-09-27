@@ -21,10 +21,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Claude Code, from Anthropic's native installer (not npm) - no Node.js
-# runtime dependency, auto-updates in the background. Installed as the
+# runtime dependency, auto-updates in the background. Pinned to the
+# "stable" channel (~1 week behind latest) so a rebuild doesn't silently
+# pick up a different release than your last one. Installed as the
 # non-root "vscode" user (the base image's default user, also set as
 # remoteUser in devcontainer.json) so it lands in ~/.local and doesn't
 # need root to update itself later.
 USER vscode
-RUN curl -fsSL https://claude.ai/install.sh | bash
+RUN curl -fsSL https://claude.ai/install.sh | bash -s stable
 ENV PATH="/home/vscode/.local/bin:${PATH}"
